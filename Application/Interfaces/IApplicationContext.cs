@@ -5,7 +5,7 @@ namespace Application.Interfaces
 {
     public interface IApplicationContext
     {
-        DbSet<Event> Events { get; set; }
+        DbSet<Meetup> Meetups { get; set; }
         Task<int> SaveChangesAsync(CancellationToken token);
     }
 }

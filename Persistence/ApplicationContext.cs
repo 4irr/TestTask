@@ -9,6 +9,6 @@ namespace Persistence
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
-        public DbSet<Event> Events { get; set; }
+        public DbSet<Meetup> Meetups { get; set; }
     }
 }

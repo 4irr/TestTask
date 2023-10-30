@@ -52,19 +52,19 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "Meetups",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Speaker = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Place = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_Meetups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,7 +232,7 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "Meetups");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

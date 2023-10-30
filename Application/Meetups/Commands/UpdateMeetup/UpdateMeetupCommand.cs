@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace Domain
+namespace Application.Meetups.Commands.UpdateMeetup
 {
-    public class Event
+    public class UpdateMeetupCommand : IRequest
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Speaker { get; set; } = null!;
-        public DateTime dateTime { get; set; }
+        public DateTime DateTime { get; set; }
         public string Place { get; set; } = null!;
     }
 }

@@ -14,7 +14,7 @@ namespace API
                 {
                     Version = "v1",
                     Title = "Test Task API",
-                    Description = "A simple Web API to work with events info",
+                    Description = "A simple Web API to work with meetups info",
                     Contact = new OpenApiContact
                     {
                         Name = "Vladislav Chirva",
