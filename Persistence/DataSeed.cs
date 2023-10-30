@@ -13,12 +13,14 @@ namespace Persistence
                 {
                     new AppUser
                     {
-                        UserName = "user1"
+                        UserName = "user1",
+                        DisplayName = "Bob"
                     },
 
                     new AppUser
                     {
-                        UserName = "user2"
+                        UserName = "user2",
+                        DisplayName = "Alice"
                     }
                 };
 
