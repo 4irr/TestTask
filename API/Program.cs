@@ -1,4 +1,5 @@
 using API;
+using API.Middleware;
 using Application;
 using Application.Common.Mappings;
 using Application.Interfaces;
@@ -27,6 +28,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCustomExceptionHandler();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
