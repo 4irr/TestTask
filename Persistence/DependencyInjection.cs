@@ -16,6 +16,8 @@ namespace Persistence
             });
             services.AddScoped<IApplicationContext>(provider =>
                 provider.GetService<ApplicationContext>()!);
+            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+
             return services;
         }
     }

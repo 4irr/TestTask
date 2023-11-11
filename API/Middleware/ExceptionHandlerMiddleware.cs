@@ -1,5 +1,5 @@
 ﻿using Application.Common.Exceptions;
-using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using System.Net;
 using System.Text.Json;
 
@@ -9,8 +9,7 @@ namespace API.Middleware
     {
         private readonly RequestDelegate _next;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next) =>
-            _next = next;
+        public ExceptionHandlerMiddleware(RequestDelegate next) => _next = next;
 
         public async Task Invoke(HttpContext context)
         {
@@ -30,6 +29,10 @@ namespace API.Middleware
             var result = string.Empty;
             switch (exception)
             {
+                case ValidationException validationException:
+                    code = HttpStatusCode.BadRequest;
+                    result = JsonSerializer.Serialize(validationException.Errors);
+                    break;
                 case NotFoundException:
                     code = HttpStatusCode.NotFound;
                     break;

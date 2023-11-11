@@ -6,9 +6,7 @@ namespace Application.AppUsers.Queries.Login
 {
     public class LoginDto : IMapWith<LoginQuery>
     {
-        [Required]
         public string? UserName { get; set; }
-        [Required]
         public string? Password { get; set; }
 
         public void Mapping(Profile profile)

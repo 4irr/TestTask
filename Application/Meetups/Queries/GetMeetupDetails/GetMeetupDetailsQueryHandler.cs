@@ -4,21 +4,20 @@ using Application.Meetups.Queries.GetMeetupsDetails;
 using AutoMapper;
 using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Meetups.Queries.GetMeetupDetails
 {
     public class GetMeetupDetailsQueryHandler : IRequestHandler<GetMeetupDetailsQuery, MeetupDetailsVm>
     {
-        private readonly IApplicationContext _context;
+        private readonly IRepository<Meetup> _repository;
         private readonly IMapper _mapper;
 
-        public GetMeetupDetailsQueryHandler(IApplicationContext context, IMapper mapper) =>
-            (_context, _mapper) = (context, mapper);
+        public GetMeetupDetailsQueryHandler(IRepository<Meetup> repository, IMapper mapper) =>
+            (_repository, _mapper) = (repository, mapper);
 
         public async Task<MeetupDetailsVm> Handle(GetMeetupDetailsQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Meetups.FirstOrDefaultAsync(meetup => meetup.Id == request.Id);
+            var entity = await _repository.FindByIdAsync(request.Id, cancellationToken);
 
             if (entity == null)
             {

@@ -1,15 +1,11 @@
 ﻿using Application.Common.Mappings;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Meetups.Commands.UpdateMeetup
 {
     public class UpdateMeetupDto : IMapWith<UpdateMeetupCommand>
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Speaker { get; set; } = null!;
@@ -19,6 +15,8 @@ namespace Application.Meetups.Commands.UpdateMeetup
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateMeetupDto, UpdateMeetupCommand>()
+                .ForMember(command => command.Id,
+                    opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(command => command.Name,
                     opt => opt.MapFrom(dto => dto.Name))
                 .ForMember(command => command.Description,

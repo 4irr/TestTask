@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -6,25 +7,19 @@ namespace Application.Meetups.Commands.CreateMeetup
 {
     public class CreateMeetupHandler : IRequestHandler<CreateMeetupCommand, Guid>
     {
-        private readonly IApplicationContext _context;
+        private readonly IRepository<Meetup> _repository;
+        private readonly IMapper _mapper;
 
-        public CreateMeetupHandler(IApplicationContext context) => _context = context;
+        public CreateMeetupHandler(IRepository<Meetup> repository, IMapper mapper) 
+            => (_repository, _mapper) = (repository, mapper);
 
         public async Task<Guid> Handle(CreateMeetupCommand request, CancellationToken cancellationToken)
         {
-            var meetup = new Meetup
-            {
-                Name = request.Name,
-                Description = request.Description,
-                Speaker = request.Speaker,
-                DateTime = request.DateTime,
-                Place = request.Place
-            };
+            var meetup = _mapper.Map<Meetup>(request);
 
-            await _context.Meetups.AddAsync(meetup);
-            await _context.SaveChangesAsync(cancellationToken);
+            var entity = await _repository.CreateAsync(meetup, cancellationToken);
 
-            return meetup.Id;
+            return entity.Id;
         }
     }
 }

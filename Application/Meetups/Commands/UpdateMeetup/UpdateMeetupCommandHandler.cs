@@ -8,15 +8,15 @@ namespace Application.Meetups.Commands.UpdateMeetup
 {
     public class UpdateMeetupCommandHandler : IRequestHandler<UpdateMeetupCommand>
     {
-        private readonly IApplicationContext _context;
+        private readonly IRepository<Meetup> _repository;
         private readonly IMapper _mapper;
 
-        public UpdateMeetupCommandHandler(IApplicationContext context, IMapper mapper) =>
-            (_context, _mapper) = (context, mapper);
+        public UpdateMeetupCommandHandler(IRepository<Meetup> repository, IMapper mapper) =>
+            (_repository, _mapper) = (repository, mapper);
 
         public async Task Handle(UpdateMeetupCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Meetups.FindAsync(request.Id, cancellationToken);
+            var entity = await _repository.FindByIdAsync(request.Id, cancellationToken);
 
             if(entity == null)
             {
@@ -29,7 +29,7 @@ namespace Application.Meetups.Commands.UpdateMeetup
             entity.DateTime = request.DateTime;
             entity.Place = request.Place;
 
-            await _context.SaveChangesAsync(cancellationToken);
+            _repository.Update(entity);
         }
     }
 }

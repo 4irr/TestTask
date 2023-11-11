@@ -1,8 +1,6 @@
 using API;
 using API.Middleware;
 using Application;
-using Application.Common.Mappings;
-using Application.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +10,6 @@ using Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAutoMapper(config =>
-{
-    config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationContext).Assembly));
-});
 
 builder.Services.AddControllers();
 builder.Services.AddApplication();
